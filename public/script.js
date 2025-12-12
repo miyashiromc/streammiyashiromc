@@ -8,6 +8,9 @@ async function initializeFirebase() {
         const response = await fetch('/__/firebase/init.json');
         const config = await response.json();
 
+        // Configuración explícita de la URL de Realtime Database para asegurar la conexión
+        config.databaseURL = "https://kushiro-531d6-default-rtdb.firebaseio.com/";
+
         const app = initializeApp(config);
         const db = getFirestore(app);
 
