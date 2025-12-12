@@ -30,7 +30,8 @@ header {
     background-color: var(--kick-gray);
     padding: 1rem 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    /* Cambiado de center a space-between */
     align-items: center;
     border-bottom: 2px solid var(--kick-green);
     box-shadow: 0 0 15px rgba(83, 252, 24, 0.2);
@@ -50,6 +51,48 @@ header {
 /* Color destacado para parte del logo */
 .logo span {
     color: var(--kick-green);
+}
+
+/* Contador de espectadores */
+.viewer-count {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(83, 252, 24, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid var(--kick-green);
+    color: var(--kick-green);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-left: auto;
+    /* Empuja el contador a la derecha si usamos flex en header */
+}
+
+/* Punto rojo/verde de "En Vivo" */
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ff0000;
+    /* Rojo para grabar/vivo clásico, o verde kick */
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 10px #ff0000;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 /* Contenedor principal que centra el stream */

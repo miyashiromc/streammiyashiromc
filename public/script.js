@@ -1,5 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js';
 import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js';
+import { getDatabase, ref, onValue, push, onDisconnect, set, serverTimestamp as rtdbTimestamp } from 'https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js';
 
 // Función para obtener la configuración de Firebase desde el entorno de hosting
 async function initializeFirebase() {
@@ -10,11 +11,46 @@ async function initializeFirebase() {
         const app = initializeApp(config);
         const db = getFirestore(app);
 
+        // Inicializar Realtime Database para el contador
+        // Nota: Si databaseURL no viene en el init.json automático, podría fallar si no se ha creado la DB.
+        const dbRT = getDatabase(app);
+
         setupCommentsSystem(db);
+        setupViewerCounter(dbRT);
+
     } catch (error) {
-        console.error('Error inicializando Firebase. Asegúrate de estar ejecutando esto en Firebase Hosting o configura manualmente las credenciales.', error);
-        // Fallback or manual config could go here if needed, but for now we rely on Hosting
+        console.error('Error inicializando Firebase:', error);
     }
+}
+
+// Sistema de Contadores de Visitas (Presencia)
+function setupViewerCounter(dbRT) {
+    const countElement = document.getElementById('count-number');
+    const connectionsRef = ref(dbRT, 'connections');
+    const connectedRef = ref(dbRT, '.info/connected');
+
+    // Manejar conexión local
+    onValue(connectedRef, (snap) => {
+        if (snap.val() === true) {
+            // Estamos conectados
+            const con = push(connectionsRef);
+
+            // Cuando me desconecte, elimina mi referencia
+            onDisconnect(con).remove();
+
+            // Guarda mi presencia
+            set(con, {
+                timestamp: rtdbTimestamp(),
+                device: navigator.userAgent
+            });
+        }
+    });
+
+    // Escuchar el total de conexiones
+    onValue(connectionsRef, (snap) => {
+        const count = snap.numChildren();
+        countElement.innerText = count;
+    });
 }
 
 function setupCommentsSystem(db) {
@@ -56,7 +92,6 @@ function setupCommentsSystem(db) {
 
             // Limpiar formulario
             document.getElementById('message').value = '';
-            // Opcional: limpiar username o dejarlo para el siguiente comentario
 
         } catch (error) {
             console.error("Error al agregar comentario: ", error);
