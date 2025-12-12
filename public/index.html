@@ -22,12 +22,33 @@
         <div class="logo">Miyashiro<span>MC</span></div>
     </header>
 
-    <!-- Contenido principal: El reproductor de stream -->
+    <!-- Contenido principal: El reproductor de stream y chat -->
     <main>
-        <div class="stream-container">
-            <!-- Iframe para incrustar el stream de Kick.com -->
-            <iframe src="https://player.kick.com/miyashiromc" allowfullscreen="true" scrolling="no" frameborder="0">
-            </iframe>
+        <div class="content-wrapper">
+            <div class="stream-container">
+                <!-- Iframe para incrustar el stream de Kick.com -->
+                <iframe src="https://player.kick.com/miyashiromc" allowfullscreen="true" scrolling="no" frameborder="0">
+                </iframe>
+            </div>
+
+            <section class="comments-section">
+                <h2>Chat de la Comunidad</h2>
+
+                <div id="comments-list" class="comments-list">
+                    <!-- Los comentarios se cargarán aquí dinámicamente -->
+                    <div class="loading" style="padding:1rem; color:#888;">Cargando comentarios...</div>
+                </div>
+
+                <form id="comment-form" class="comment-form">
+                    <div class="input-group">
+                        <input type="text" id="username" placeholder="Tu Nombre" required maxlength="20">
+                    </div>
+                    <div class="input-group">
+                        <textarea id="message" placeholder="Escribe un mensaje..." required maxlength="200"></textarea>
+                    </div>
+                    <button type="submit">Comentar</button>
+                </form>
+            </section>
         </div>
     </main>
 
@@ -35,6 +56,9 @@
     <footer>
         <p>&copy; 2025 MiyashiroMC. Transmitiendo en Kick.</p>
     </footer>
+
+    <!-- Script de funcionalidad -->
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
