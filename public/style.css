@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+:root {
+    --kick-green: #53fc18;
+    --kick-dark: #0b0e0f;
+    --kick-gray: #191b1f;
+    --text-color: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--kick-dark);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--kick-gray);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid var(--kick-green);
+    box-shadow: 0 0 15px rgba(83, 252, 24, 0.2);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--kick-green);
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: 100%;
+}
+
+.stream-container {
+    width: 100%;
+    max-width: 1280px;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(83, 252, 24, 0.1);
+    position: relative;
+    /* Maintain aspect ratio */
+    aspect-ratio: 16 / 9;
+}
+
+.stream-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--kick-gray);
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Add a pulse animation to the header border maybe? */
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 5px rgba(83, 252, 24, 0.1); }
+    50% { box-shadow: 0 0 20px rgba(83, 252, 24, 0.3); }
+    100% { box-shadow: 0 0 5px rgba(83, 252, 24, 0.1); }
+}
+
+header {
+    animation: pulse-green 3s infinite;
+}
