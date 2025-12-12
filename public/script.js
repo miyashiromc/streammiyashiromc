@@ -51,7 +51,7 @@ function setupViewerCounter(dbRT) {
 
     // Escuchar el total de conexiones
     onValue(connectionsRef, (snap) => {
-        const count = snap.numChildren();
+        const count = snap.size;
         countElement.innerText = count;
     });
 }
